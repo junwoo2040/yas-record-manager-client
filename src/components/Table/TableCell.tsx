@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 interface IProps {
-  data: string | number;
+  data: string | number | undefined;
 }
 
 const TableCell: FC<IProps> = ({ data }) => {

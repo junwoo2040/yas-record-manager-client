@@ -1,8 +1,7 @@
-import { FC, HTMLInputTypeAttribute } from "react";
+import { FC, HTMLInputTypeAttribute, useState } from "react";
 
 interface Input {
   label: string;
-
   placeholder: string;
   type: HTMLInputTypeAttribute;
 }
@@ -11,7 +10,13 @@ interface IProps {
   inputs: Input[];
 }
 
-const Form: FC<IProps> = ({ inputs }) => {
+interface IShape {
+  [key: string]: string | number;
+}
+
+const Form: FC<IProps> = <T = IShape,>({ inputs }) => {
+  const [value, setValue] = useState<T>({});
+
   return (
     <form
       onSubmit={async (event) => {

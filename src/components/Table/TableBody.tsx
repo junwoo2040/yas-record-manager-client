@@ -2,7 +2,7 @@ import { FC } from "react";
 import TableRow from "./TableRow";
 
 interface IProps {
-  data: (string | number)[][];
+  data: (string | number | undefined)[][];
 }
 
 const TableBody: FC<IProps> = ({ data }) => {

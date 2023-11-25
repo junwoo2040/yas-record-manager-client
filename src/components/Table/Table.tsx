@@ -5,7 +5,7 @@ import TableBody from "./TableBody";
 
 interface IProps {
   headers: string[];
-  data: (string | number)[][];
+  data: (string | number | undefined)[][];
 }
 
 const Table: FC<IProps> = ({ headers, data }) => {

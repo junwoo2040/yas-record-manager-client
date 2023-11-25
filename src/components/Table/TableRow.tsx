@@ -2,7 +2,7 @@ import { FC } from "react";
 import TableCell from "@components/Table/TableCell";
 
 interface IProps {
-  dataRow: (string | number)[];
+  dataRow: (string | number | undefined)[];
 }
 
 const TableRow: FC<IProps> = ({ dataRow }) => {

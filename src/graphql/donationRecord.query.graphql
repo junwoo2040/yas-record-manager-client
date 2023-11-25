@@ -1,0 +1,14 @@
+query getAllDonationRecords {
+  donationRecords {
+    id
+    donorName
+    donorContact
+    amount
+    author {
+      id
+      firstName
+      lastName
+    }
+    createdAt
+  }
+}
