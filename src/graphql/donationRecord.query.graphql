@@ -1,14 +1,17 @@
-query getAllDonationRecords {
+query GetAllDonationRecords {
   donationRecords {
-    id
-    donorName
-    donorContact
-    amount
-    author {
-      id
-      firstName
-      lastName
+    ... on QueryDonationRecordsSuccess {
+      __typename
+      data {
+        id
+        donorName
+        donorContact
+        amount
+        createdAt
+      }
     }
-    createdAt
+    ... on Error {
+      message
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { RequestInit } from 'graphql-request/dist/types.dom';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -26,6 +26,39 @@ export type Scalars = {
   Date: { input: any; output: any; }
 };
 
+export type AccountAcceptInput = {
+  email: Scalars['String']['input'];
+};
+
+export type AccountDenyInput = {
+  email: Scalars['String']['input'];
+};
+
+export type AccountLoginInput = {
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type AccountRequest = {
+  __typename?: 'AccountRequest';
+  acceptedAt?: Maybe<Scalars['Date']['output']>;
+  createdAt?: Maybe<Scalars['Date']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['ID']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+  school?: Maybe<Scalars['String']['output']>;
+  username?: Maybe<Scalars['String']['output']>;
+};
+
+export type AccountRequestInput = {
+  email: Scalars['String']['input'];
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
+};
+
 export type DonationRecord = {
   __typename?: 'DonationRecord';
   amount?: Maybe<Scalars['Float']['output']>;
@@ -46,6 +79,10 @@ export type DonationRecordDeleteInput = {
   donationRecordId: Scalars['String']['input'];
 };
 
+export type DonationRecordFindByIdInput = {
+  recordId: Scalars['String']['input'];
+};
+
 export type DonationRecordUpdateAmountInput = {
   amount: Scalars['Float']['input'];
   donationRecordId: Scalars['String']['input'];
@@ -61,30 +98,58 @@ export type DonationRecordUpdateDonorNameInput = {
   donorName: Scalars['String']['input'];
 };
 
+export type Error = {
+  __typename?: 'Error';
+  message?: Maybe<Scalars['String']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  createDonationRecord?: Maybe<DonationRecord>;
-  createSalesRecord?: Maybe<SalesRecord>;
-  createSpendingRecord?: Maybe<SpendingRecord>;
-  createUser?: Maybe<User>;
-  deleteDonationRecord?: Maybe<DonationRecord>;
-  deleteSalesRecord?: Maybe<SalesRecord>;
-  deleteSpendingRecord?: Maybe<SpendingRecord>;
-  deleteUser?: Maybe<User>;
-  updateDonationRecordDonorContact?: Maybe<DonationRecord>;
-  updateDonationRecordDonorName?: Maybe<DonationRecord>;
-  updateDonationRecordSchool?: Maybe<DonationRecord>;
-  updateSalesRecordClientContact?: Maybe<SalesRecord>;
-  updateSalesRecordClientName?: Maybe<SalesRecord>;
-  updateSalesRecordDiscount?: Maybe<SalesRecord>;
-  updateSalesRecordPrice?: Maybe<SalesRecord>;
-  updateSalesRecordProduct?: Maybe<SalesRecord>;
-  updateSalesRecordQuantity?: Maybe<SalesRecord>;
-  updateSpendingRecordAmount?: Maybe<SpendingRecord>;
-  updateSpendingRecordNote?: Maybe<SpendingRecord>;
-  updateUserName?: Maybe<User>;
-  updateUserPassword?: Maybe<User>;
-  updateUserSchool?: Maybe<User>;
+  accountAccept?: Maybe<MutationAccountAcceptResult>;
+  accountDeny?: Maybe<MutationAccountDenyResult>;
+  accountLogin?: Maybe<MutationAccountLoginResult>;
+  accountRequest?: Maybe<MutationAccountRequestResult>;
+  createDonationRecord?: Maybe<MutationCreateDonationRecordResult>;
+  createSalesRecord?: Maybe<MutationCreateSalesRecordResult>;
+  createSpendingRecord?: Maybe<MutationCreateSpendingRecordResult>;
+  deleteDonationRecord?: Maybe<MutationDeleteDonationRecordResult>;
+  deleteSalesRecord?: Maybe<MutationDeleteSalesRecordResult>;
+  deleteSpendingRecord?: Maybe<MutationDeleteSpendingRecordResult>;
+  deleteUser?: Maybe<MutationDeleteUserResult>;
+  updateDonationRecordAmount?: Maybe<MutationUpdateDonationRecordAmountResult>;
+  updateDonationRecordDonorContact?: Maybe<MutationUpdateDonationRecordDonorContactResult>;
+  updateDonationRecordDonorName?: Maybe<MutationUpdateDonationRecordDonorNameResult>;
+  updateSalesRecordClientContact?: Maybe<MutationUpdateSalesRecordClientContactResult>;
+  updateSalesRecordClientName?: Maybe<MutationUpdateSalesRecordClientNameResult>;
+  updateSalesRecordDiscount?: Maybe<MutationUpdateSalesRecordDiscountResult>;
+  updateSalesRecordPrice?: Maybe<MutationUpdateSalesRecordPriceResult>;
+  updateSalesRecordProduct?: Maybe<MutationUpdateSalesRecordProductResult>;
+  updateSalesRecordQuantity?: Maybe<MutationUpdateSalesRecordQuantityResult>;
+  updateSpendingRecordAmount?: Maybe<MutationUpdateSpendingRecordAmountResult>;
+  updateSpendingRecordNote?: Maybe<MutationUpdateSpendingRecordNoteResult>;
+  updateUserName?: Maybe<MutationUpdateUserNameResult>;
+  updateUserPassword?: Maybe<MutationUpdateUserPasswordResult>;
+  updateUserSchool?: Maybe<MutationUpdateUserSchoolResult>;
+};
+
+
+export type MutationAccountAcceptArgs = {
+  input: AccountAcceptInput;
+};
+
+
+export type MutationAccountDenyArgs = {
+  input: AccountDenyInput;
+};
+
+
+export type MutationAccountLoginArgs = {
+  input: AccountLoginInput;
+};
+
+
+export type MutationAccountRequestArgs = {
+  input: AccountRequestInput;
 };
 
 
@@ -100,11 +165,6 @@ export type MutationCreateSalesRecordArgs = {
 
 export type MutationCreateSpendingRecordArgs = {
   input: SpendingRecordCreateInput;
-};
-
-
-export type MutationCreateUserArgs = {
-  input: UserCreateInput;
 };
 
 
@@ -128,6 +188,11 @@ export type MutationDeleteUserArgs = {
 };
 
 
+export type MutationUpdateDonationRecordAmountArgs = {
+  input: DonationRecordUpdateAmountInput;
+};
+
+
 export type MutationUpdateDonationRecordDonorContactArgs = {
   input: DonationRecordUpdateDonorContactInput;
 };
@@ -135,11 +200,6 @@ export type MutationUpdateDonationRecordDonorContactArgs = {
 
 export type MutationUpdateDonationRecordDonorNameArgs = {
   input: DonationRecordUpdateDonorNameInput;
-};
-
-
-export type MutationUpdateDonationRecordSchoolArgs = {
-  input: DonationRecordUpdateAmountInput;
 };
 
 
@@ -197,36 +257,275 @@ export type MutationUpdateUserSchoolArgs = {
   input: UserUpdateSchoolInput;
 };
 
+export type MutationAccountAcceptResult = Error | MutationAccountAcceptSuccess;
+
+export type MutationAccountAcceptSuccess = {
+  __typename?: 'MutationAccountAcceptSuccess';
+  data: User;
+};
+
+export type MutationAccountDenyResult = Error | MutationAccountDenySuccess;
+
+export type MutationAccountDenySuccess = {
+  __typename?: 'MutationAccountDenySuccess';
+  data: User;
+};
+
+export type MutationAccountLoginResult = Error | MutationAccountLoginSuccess;
+
+export type MutationAccountLoginSuccess = {
+  __typename?: 'MutationAccountLoginSuccess';
+  data: User;
+};
+
+export type MutationAccountRequestResult = Error | MutationAccountRequestSuccess;
+
+export type MutationAccountRequestSuccess = {
+  __typename?: 'MutationAccountRequestSuccess';
+  data: AccountRequest;
+};
+
+export type MutationCreateDonationRecordResult = Error | MutationCreateDonationRecordSuccess;
+
+export type MutationCreateDonationRecordSuccess = {
+  __typename?: 'MutationCreateDonationRecordSuccess';
+  data: DonationRecord;
+};
+
+export type MutationCreateSalesRecordResult = Error | MutationCreateSalesRecordSuccess;
+
+export type MutationCreateSalesRecordSuccess = {
+  __typename?: 'MutationCreateSalesRecordSuccess';
+  data: SalesRecord;
+};
+
+export type MutationCreateSpendingRecordResult = Error | MutationCreateSpendingRecordSuccess;
+
+export type MutationCreateSpendingRecordSuccess = {
+  __typename?: 'MutationCreateSpendingRecordSuccess';
+  data: SpendingRecord;
+};
+
+export type MutationDeleteDonationRecordResult = Error | MutationDeleteDonationRecordSuccess;
+
+export type MutationDeleteDonationRecordSuccess = {
+  __typename?: 'MutationDeleteDonationRecordSuccess';
+  data: DonationRecord;
+};
+
+export type MutationDeleteSalesRecordResult = Error | MutationDeleteSalesRecordSuccess;
+
+export type MutationDeleteSalesRecordSuccess = {
+  __typename?: 'MutationDeleteSalesRecordSuccess';
+  data: SalesRecord;
+};
+
+export type MutationDeleteSpendingRecordResult = Error | MutationDeleteSpendingRecordSuccess;
+
+export type MutationDeleteSpendingRecordSuccess = {
+  __typename?: 'MutationDeleteSpendingRecordSuccess';
+  data: SpendingRecord;
+};
+
+export type MutationDeleteUserResult = Error | MutationDeleteUserSuccess;
+
+export type MutationDeleteUserSuccess = {
+  __typename?: 'MutationDeleteUserSuccess';
+  data: User;
+};
+
+export type MutationUpdateDonationRecordAmountResult = Error | MutationUpdateDonationRecordAmountSuccess;
+
+export type MutationUpdateDonationRecordAmountSuccess = {
+  __typename?: 'MutationUpdateDonationRecordAmountSuccess';
+  data: DonationRecord;
+};
+
+export type MutationUpdateDonationRecordDonorContactResult = Error | MutationUpdateDonationRecordDonorContactSuccess;
+
+export type MutationUpdateDonationRecordDonorContactSuccess = {
+  __typename?: 'MutationUpdateDonationRecordDonorContactSuccess';
+  data: DonationRecord;
+};
+
+export type MutationUpdateDonationRecordDonorNameResult = Error | MutationUpdateDonationRecordDonorNameSuccess;
+
+export type MutationUpdateDonationRecordDonorNameSuccess = {
+  __typename?: 'MutationUpdateDonationRecordDonorNameSuccess';
+  data: DonationRecord;
+};
+
+export type MutationUpdateSalesRecordClientContactResult = Error | MutationUpdateSalesRecordClientContactSuccess;
+
+export type MutationUpdateSalesRecordClientContactSuccess = {
+  __typename?: 'MutationUpdateSalesRecordClientContactSuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSalesRecordClientNameResult = Error | MutationUpdateSalesRecordClientNameSuccess;
+
+export type MutationUpdateSalesRecordClientNameSuccess = {
+  __typename?: 'MutationUpdateSalesRecordClientNameSuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSalesRecordDiscountResult = Error | MutationUpdateSalesRecordDiscountSuccess;
+
+export type MutationUpdateSalesRecordDiscountSuccess = {
+  __typename?: 'MutationUpdateSalesRecordDiscountSuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSalesRecordPriceResult = Error | MutationUpdateSalesRecordPriceSuccess;
+
+export type MutationUpdateSalesRecordPriceSuccess = {
+  __typename?: 'MutationUpdateSalesRecordPriceSuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSalesRecordProductResult = Error | MutationUpdateSalesRecordProductSuccess;
+
+export type MutationUpdateSalesRecordProductSuccess = {
+  __typename?: 'MutationUpdateSalesRecordProductSuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSalesRecordQuantityResult = Error | MutationUpdateSalesRecordQuantitySuccess;
+
+export type MutationUpdateSalesRecordQuantitySuccess = {
+  __typename?: 'MutationUpdateSalesRecordQuantitySuccess';
+  data: SalesRecord;
+};
+
+export type MutationUpdateSpendingRecordAmountResult = Error | MutationUpdateSpendingRecordAmountSuccess;
+
+export type MutationUpdateSpendingRecordAmountSuccess = {
+  __typename?: 'MutationUpdateSpendingRecordAmountSuccess';
+  data: SpendingRecord;
+};
+
+export type MutationUpdateSpendingRecordNoteResult = Error | MutationUpdateSpendingRecordNoteSuccess;
+
+export type MutationUpdateSpendingRecordNoteSuccess = {
+  __typename?: 'MutationUpdateSpendingRecordNoteSuccess';
+  data: SpendingRecord;
+};
+
+export type MutationUpdateUserNameResult = Error | MutationUpdateUserNameSuccess;
+
+export type MutationUpdateUserNameSuccess = {
+  __typename?: 'MutationUpdateUserNameSuccess';
+  data: User;
+};
+
+export type MutationUpdateUserPasswordResult = Error | MutationUpdateUserPasswordSuccess;
+
+export type MutationUpdateUserPasswordSuccess = {
+  __typename?: 'MutationUpdateUserPasswordSuccess';
+  data: User;
+};
+
+export type MutationUpdateUserSchoolResult = Error | MutationUpdateUserSchoolSuccess;
+
+export type MutationUpdateUserSchoolSuccess = {
+  __typename?: 'MutationUpdateUserSchoolSuccess';
+  data: User;
+};
+
 export type Query = {
   __typename?: 'Query';
-  donationRecord?: Maybe<DonationRecord>;
-  donationRecords?: Maybe<Array<DonationRecord>>;
-  salesRecord?: Maybe<SalesRecord>;
-  salesRecords?: Maybe<Array<SalesRecord>>;
-  spendingRecord?: Maybe<SpendingRecord>;
-  spendingRecords?: Maybe<Array<SpendingRecord>>;
-  user?: Maybe<User>;
-  users?: Maybe<Array<User>>;
+  currentUser?: Maybe<QueryCurrentUserResult>;
+  donationRecord?: Maybe<QueryDonationRecordResult>;
+  donationRecords?: Maybe<QueryDonationRecordsResult>;
+  salesRecord?: Maybe<QuerySalesRecordResult>;
+  salesRecords?: Maybe<QuerySalesRecordsResult>;
+  spendingRecord?: Maybe<QuerySpendingRecordResult>;
+  spendingRecords?: Maybe<QuerySpendingRecordsResult>;
+  user?: Maybe<QueryUserResult>;
+  users?: Maybe<QueryUsersResult>;
 };
 
 
 export type QueryDonationRecordArgs = {
-  recordId: Scalars['String']['input'];
+  input: DonationRecordFindByIdInput;
 };
 
 
 export type QuerySalesRecordArgs = {
-  salesRecordId: Scalars['String']['input'];
+  input: SalesRecordFindByIdInput;
 };
 
 
 export type QuerySpendingRecordArgs = {
-  spendingRecordId: Scalars['String']['input'];
+  input: SpendingRecordFindByIdInput;
 };
 
 
 export type QueryUserArgs = {
-  userId: Scalars['String']['input'];
+  input: UserFindByIdInput;
+};
+
+export type QueryCurrentUserResult = Error | QueryCurrentUserSuccess;
+
+export type QueryCurrentUserSuccess = {
+  __typename?: 'QueryCurrentUserSuccess';
+  data: User;
+};
+
+export type QueryDonationRecordResult = Error | QueryDonationRecordSuccess;
+
+export type QueryDonationRecordSuccess = {
+  __typename?: 'QueryDonationRecordSuccess';
+  data: DonationRecord;
+};
+
+export type QueryDonationRecordsResult = Error | QueryDonationRecordsSuccess;
+
+export type QueryDonationRecordsSuccess = {
+  __typename?: 'QueryDonationRecordsSuccess';
+  data: Array<DonationRecord>;
+};
+
+export type QuerySalesRecordResult = Error | QuerySalesRecordSuccess;
+
+export type QuerySalesRecordSuccess = {
+  __typename?: 'QuerySalesRecordSuccess';
+  data: SalesRecord;
+};
+
+export type QuerySalesRecordsResult = Error | QuerySalesRecordsSuccess;
+
+export type QuerySalesRecordsSuccess = {
+  __typename?: 'QuerySalesRecordsSuccess';
+  data: Array<SalesRecord>;
+};
+
+export type QuerySpendingRecordResult = Error | QuerySpendingRecordSuccess;
+
+export type QuerySpendingRecordSuccess = {
+  __typename?: 'QuerySpendingRecordSuccess';
+  data: SpendingRecord;
+};
+
+export type QuerySpendingRecordsResult = Error | QuerySpendingRecordsSuccess;
+
+export type QuerySpendingRecordsSuccess = {
+  __typename?: 'QuerySpendingRecordsSuccess';
+  data: Array<SpendingRecord>;
+};
+
+export type QueryUserResult = Error | QueryUserSuccess;
+
+export type QueryUserSuccess = {
+  __typename?: 'QueryUserSuccess';
+  data: User;
+};
+
+export type QueryUsersResult = Error | QueryUsersSuccess;
+
+export type QueryUsersSuccess = {
+  __typename?: 'QueryUsersSuccess';
+  data: Array<User>;
 };
 
 export type SalesRecodUpdateDiscountInput = {
@@ -258,6 +557,10 @@ export type SalesRecordCreateInput = {
 
 export type SalesRecordDeleteInput = {
   salesRecordId: Scalars['String']['input'];
+};
+
+export type SalesRecordFindByIdInput = {
+  recordId: Scalars['String']['input'];
 };
 
 export type SalesRecordUpdateClientContactInput = {
@@ -303,6 +606,10 @@ export type SpendingRecordDeleteInput = {
   spendingRecordId: Scalars['String']['input'];
 };
 
+export type SpendingRecordFindByIdInput = {
+  recordId: Scalars['String']['input'];
+};
+
 export type SpendingRecordUpdateNoteInput = {
   note: Scalars['String']['input'];
   spendingRecordId: Scalars['String']['input'];
@@ -326,15 +633,11 @@ export type User = {
   username?: Maybe<Scalars['String']['output']>;
 };
 
-export type UserCreateInput = {
-  email: Scalars['String']['input'];
-  firstName: Scalars['String']['input'];
-  lastName: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  username: Scalars['String']['input'];
+export type UserDeleteInput = {
+  userId: Scalars['String']['input'];
 };
 
-export type UserDeleteInput = {
+export type UserFindByIdInput = {
   userId: Scalars['String']['input'];
 };
 
@@ -355,31 +658,73 @@ export type UserUpdateSchoolInput = {
   userId: Scalars['String']['input'];
 };
 
+export type AccountLoginMutationVariables = Exact<{
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type AccountLoginMutation = { __typename?: 'Mutation', accountLogin?: { __typename?: 'Error', message?: string | null } | { __typename: 'MutationAccountLoginSuccess', data: { __typename?: 'User', id?: string | null, email?: string | null, username?: string | null, firstName?: string | null, lastName?: string | null, school?: string | null } } | null };
+
 export type GetAllDonationRecordsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllDonationRecordsQuery = { __typename?: 'Query', donationRecords?: Array<{ __typename?: 'DonationRecord', id?: string | null, donorName?: string | null, donorContact?: string | null, amount?: number | null, createdAt?: any | null, author?: { __typename?: 'User', id?: string | null, firstName?: string | null, lastName?: string | null } | null }> | null };
-
-export type GetAllSalesRecordsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllDonationRecordsQuery = { __typename?: 'Query', donationRecords?: { __typename?: 'Error', message?: string | null } | { __typename: 'QueryDonationRecordsSuccess', data: Array<{ __typename?: 'DonationRecord', id?: string | null, donorName?: string | null, donorContact?: string | null, amount?: number | null, createdAt?: any | null }> } | null };
 
 
-export type GetAllSalesRecordsQuery = { __typename?: 'Query', salesRecords?: Array<{ __typename?: 'SalesRecord', id?: string | null, clientName?: string | null, clientContact?: string | null, product?: string | null, price?: number | null, quantity?: number | null, discount?: number | null, createdAt?: any | null }> | null };
 
+export const AccountLoginDocument = `
+    mutation AccountLogin($password: String = "", $username: String = "") {
+  accountLogin(input: {username: $username, password: $password}) {
+    ... on MutationAccountLoginSuccess {
+      __typename
+      data {
+        id
+        email
+        username
+        firstName
+        lastName
+        school
+      }
+    }
+    ... on Error {
+      message
+    }
+  }
+}
+    `;
 
+export const useAccountLoginMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<AccountLoginMutation, TError, AccountLoginMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) => {
+    
+    return useMutation<AccountLoginMutation, TError, AccountLoginMutationVariables, TContext>(
+      ['AccountLogin'],
+      (variables?: AccountLoginMutationVariables) => fetcher<AccountLoginMutation, AccountLoginMutationVariables>(client, AccountLoginDocument, variables, headers)(),
+      options
+    )};
 
 export const GetAllDonationRecordsDocument = `
-    query getAllDonationRecords {
+    query GetAllDonationRecords {
   donationRecords {
-    id
-    donorName
-    donorContact
-    amount
-    author {
-      id
-      firstName
-      lastName
+    ... on QueryDonationRecordsSuccess {
+      __typename
+      data {
+        id
+        donorName
+        donorContact
+        amount
+        createdAt
+      }
     }
-    createdAt
+    ... on Error {
+      message
+    }
   }
 }
     `;
@@ -395,42 +740,9 @@ export const useGetAllDonationRecordsQuery = <
     ) => {
     
     return useQuery<GetAllDonationRecordsQuery, TError, TData>(
-      variables === undefined ? ['getAllDonationRecords'] : ['getAllDonationRecords', variables],
+      variables === undefined ? ['GetAllDonationRecords'] : ['GetAllDonationRecords', variables],
       fetcher<GetAllDonationRecordsQuery, GetAllDonationRecordsQueryVariables>(client, GetAllDonationRecordsDocument, variables, headers),
       options
     )};
 
-useGetAllDonationRecordsQuery.getKey = (variables?: GetAllDonationRecordsQueryVariables) => variables === undefined ? ['getAllDonationRecords'] : ['getAllDonationRecords', variables];
-
-export const GetAllSalesRecordsDocument = `
-    query getAllSalesRecords {
-  salesRecords {
-    id
-    clientName
-    clientContact
-    product
-    price
-    quantity
-    discount
-    createdAt
-  }
-}
-    `;
-
-export const useGetAllSalesRecordsQuery = <
-      TData = GetAllSalesRecordsQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables?: GetAllSalesRecordsQueryVariables,
-      options?: UseQueryOptions<GetAllSalesRecordsQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) => {
-    
-    return useQuery<GetAllSalesRecordsQuery, TError, TData>(
-      variables === undefined ? ['getAllSalesRecords'] : ['getAllSalesRecords', variables],
-      fetcher<GetAllSalesRecordsQuery, GetAllSalesRecordsQueryVariables>(client, GetAllSalesRecordsDocument, variables, headers),
-      options
-    )};
-
-useGetAllSalesRecordsQuery.getKey = (variables?: GetAllSalesRecordsQueryVariables) => variables === undefined ? ['getAllSalesRecords'] : ['getAllSalesRecords', variables];
+useGetAllDonationRecordsQuery.getKey = (variables?: GetAllDonationRecordsQueryVariables) => variables === undefined ? ['GetAllDonationRecords'] : ['GetAllDonationRecords', variables];

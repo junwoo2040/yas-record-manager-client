@@ -1,0 +1,18 @@
+mutation AccountLogin($password: String = "", $username: String = "") {
+  accountLogin(input: { username: $username, password: $password }) {
+    ... on MutationAccountLoginSuccess {
+      __typename
+      data {
+        id
+        email
+        username
+        firstName
+        lastName
+        school
+      }
+    }
+    ... on Error {
+      message
+    }
+  }
+}

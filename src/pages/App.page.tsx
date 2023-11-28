@@ -4,15 +4,15 @@ import { userHeaders } from "@database/donationRecords";
 
 import Table from "@components/Table/Table";
 import Form from "@components/Form/Form";
-import { useGetAllDonationRecordsQuery } from "./graphql/generated";
+
+import { useGetAllDonationRecordsQuery } from "@graphql/generated";
 import { graphQLRequestClient } from "@utils/clients";
 
 const App: FC = () => {
   const { data, isLoading, isError } =
     useGetAllDonationRecordsQuery(graphQLRequestClient);
 
-  return (
-    <>
+  /*
       <Form
         inputs={[
           { label: "Donor Name", placeholder: "John Doe", type: "text" },
@@ -27,6 +27,23 @@ const App: FC = () => {
       {isError ? (
         <p>Error</p>
       ) : isLoading ? (
+        <p>Loading</p>
+      ) : (
+        <Table
+          headers={userHeaders}
+          data={data!.donationRecords!.map((record) => [
+            record.donorName || undefined,
+            record.donorContact || undefined,
+            record.amount || undefined,
+          ])}
+        />
+      )}
+
+     */
+
+  return (
+    <>
+      {isLoading ? (
         <p>Loading</p>
       ) : (
         <Table

@@ -1,12 +1,12 @@
-query getAllSalesRecords {
-  salesRecords {
-    id
-    clientName
-    clientContact
-    product
-    price
-    quantity
-    discount
-    createdAt
-  }
-}
+# query getAllSalesRecords {
+#   salesRecords {
+#     id
+#     clientName
+#     clientContact
+#     product
+#     price
+#     quantity
+#     discount
+#     createdAt
+#   }
+# }
